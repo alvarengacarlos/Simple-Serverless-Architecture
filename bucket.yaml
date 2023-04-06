@@ -1,0 +1,20 @@
+AWSTemplateFormatVersion: "2010-09-09"
+
+Description: "This template create a base to deploy a lambda function"
+
+Parameters:
+    Environment:
+        Type: String
+        Default: "dev"
+        AllowedValues:
+            - "dev"
+            - "prod"
+        Description: "Define which environment will be used: production or development"
+        ConstraintDescription: "Must be 'dev' or 'prod'"
+
+Resources:
+    LambdaBucket:
+        Type: AWS::S3::Bucket
+        Properties: 
+            BucketName: "alvarenga-carlos-lambda-bucket"
+    
