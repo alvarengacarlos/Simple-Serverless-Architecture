@@ -1,0 +1,29 @@
+AWSTemplateFormatVersion: "2010-09-09"
+
+Resources:
+  WordsDynamoDbTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: UserId
+          AttributeType: S
+        - AttributeName: WordCategory
+          AttributeType: S
+        - AttributeName: Word
+          AttributeType: S
+      BillingMode: PROVISIONED
+      ProvisionedThroughput: 
+        ReadCapacityUnits: 2
+        WriteCapacityUnits: 2
+      KeySchema:
+        - AttributeName: WordCategory
+          KeyType: HASH
+        - AttributeName: UserId
+          KeyType: RANGE
+      TableClass: STANDARD
+      TableName: Words
+Outputs:
+  WordsDynamoDbTable:
+    Value: !Ref WordsDynamoDbTable
+    Exports:
+      Name: !Sub "${AWS::StackName}-WordsDynamoDbTableId"
