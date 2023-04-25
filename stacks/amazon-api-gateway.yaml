@@ -1,0 +1,115 @@
+AWSTemplateFormatVersion: "2010-09-09"
+
+Parameters:
+  AllowCorsForWhatOrigin:
+    Type: String
+    Default: ''
+  DeployStage:
+    Type: String
+    Default: dev
+    AllowedValues: 
+      - dev
+      - v1
+
+Resources:
+  #I choose HTTP Api on this: <https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-vs-rest.html>
+  ApiGateway:  
+    Type: AWS::ApiGatewayV2::Api
+    Properties:
+      CorsConfiguration:
+        AllowCredentials: True
+        AllowHeaders:
+          - '*'
+        AllowMethods:
+          - 'GET'
+          - 'POST'
+          - 'PUT'
+          - 'DELETE'
+        AllowOrigins:
+          - !Ref AllowCorsForWhatOrigin
+  ApiGatewayStage:
+    Type: AWS::ApiGatewayV2::Stage
+    Properties:
+      ApiId: !Ref ApiGateway
+      AutoDeploy: True
+      StageName: !Ref DeployStage
+      #TODO: Put logs: https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-logging.html
+  LambdaIntegration:
+    Type: AWS::ApiGatewayV2::Integration
+    Properties:
+      ApiId: !Ref ApiGateway      
+      IntegrationType: AWS_PROXY
+      #TODO: Change function-name by lambda's name
+      IntegrationUri: !Sub "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:<function-name>"
+      PayloadFormatVersion: '2.0'
+  #####################
+  # Categories routes #
+  #####################
+  CreateCategoryRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref ApiGateway
+      AuthorizationType: NONE
+      RouteKey: 'POST /categories'
+  ReadCategoryByIdRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref ApiGateway
+      AuthorizationType: NONE
+      RouteKey: 'GET /categories/{id}'
+  ReadAllCategoryRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref ApiGateway
+      AuthorizationType: NONE
+      RouteKey: 'GET /categories'
+  UpdateCategoryByIdRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref ApiGateway
+      AuthorizationType: NONE
+      RouteKey: 'PUT /categories/{id}'
+  DeleteCategoryByIdRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref ApiGateway
+      AuthorizationType: NONE
+      RouteKey: 'DELETE /categories'
+  ################
+  # Words routes #
+  ################
+  CreateWordRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref ApiGateway
+      AuthorizationType: NONE
+      RouteKey: 'POST /words'
+  ReadWordByIdRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref ApiGateway
+      AuthorizationType: NONE
+      RouteKey: 'GET /words/{id}'
+  ReadAllWordRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref ApiGateway
+      AuthorizationType: NONE
+      RouteKey: 'GET /words'
+  UpdateByIdWordRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref ApiGateway
+      AuthorizationType: NONE
+      RouteKey: 'PUT /words/{id}'
+  DeleteByIdWordRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref ApiGateway
+      AuthorizationType: NONE
+      RouteKey: 'DELETE /words/{id}'
+Outputs:
+  ApiGateway:
+    Value: !Ref ApiGateway
+    Export:
+      Name: !Sub "${AWS::StackName}-ApiGatewayId"
