@@ -16,8 +16,8 @@ Resources:
   ApiGateway:  
     Type: AWS::ApiGatewayV2::Api
     Properties:
+      Name: !Sub "${AWS::StackName}-ApiGateway"
       CorsConfiguration:
-        AllowCredentials: True
         AllowHeaders:
           - '*'
         AllowMethods:
@@ -27,6 +27,7 @@ Resources:
           - 'DELETE'
         AllowOrigins:
           - !Ref AllowCorsForWhatOrigin
+      ProtocolType: HTTP
   ApiGatewayStage:
     Type: AWS::ApiGatewayV2::Stage
     Properties:
