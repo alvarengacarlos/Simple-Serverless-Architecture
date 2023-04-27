@@ -4,7 +4,7 @@ Resources:
   ProxyLambdaS3Bucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: !Sub "${AWS::StackName}-ProxyLambdaS3Bucket"      
+      BucketName: !Sub "${AWS::StackName}-proxy-lambda"      
 Outputs:
   ProxyLambdaS3Bucket:
     Value: !Ref ProxyLambdaS3Bucket
