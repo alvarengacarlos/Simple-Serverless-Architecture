@@ -39,8 +39,7 @@ Resources:
     Properties:
       ApiId: !Ref ApiGateway      
       IntegrationType: AWS_PROXY
-      #TODO: Change function-name by lambda's name
-      IntegrationUri: !Sub "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:<function-name>"
+      IntegrationUri: !Sub "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:simple-serverless-arch-proxy-lambda"
       PayloadFormatVersion: '2.0'
   #####################
   # Categories routes #

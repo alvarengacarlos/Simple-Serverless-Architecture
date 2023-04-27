@@ -1,0 +1,12 @@
+AWSTemplateFormatVersion: "2010-09-09"
+
+Resources:
+  ProxyLambdaS3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub "${AWS::StackName}-ProxyLambdaS3Bucket"      
+Outputs:
+  ProxyLambdaS3Bucket:
+    Value: !Ref ProxyLambdaS3Bucket
+    Export:
+      Name: !Sub "${AWS::StackName}-ProxyLambdaS3BucketId"
