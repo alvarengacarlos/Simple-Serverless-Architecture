@@ -15,7 +15,7 @@ aws cloudformation create-stack --stack-name simple-serverless-arch-amazon-dynam
 - Run these commands to create AWS Lambda stack:
 
 ```bash
-aws cloudformation create-stack --stack-name simple-serverless-arch-amazon-s3-bucket --template-body file://$(pwd)/amazon-s3.yaml
+aws cloudformation create-stack --stack-name simple-serverless-arch-amazon-s3-bucket --template-body file://$(pwd)/amazon-s3-bucket.yaml
 ```
 
 ```bash
