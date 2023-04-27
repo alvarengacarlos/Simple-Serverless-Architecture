@@ -1,10 +1,6 @@
 AWSTemplateFormatVersion: "2010-09-09"
 
 Resources:
-  ProxyAwsLambdaVersion:
-    Type: AWS::Lambda::Version
-    Properties:       
-      FunctionName: !GetAtt ProxyAwsLambda
   ProxyAwsLambdaRole:
     Type: AWS::IAM::Role
     Properties: 
@@ -16,7 +12,7 @@ Resources:
               - sts:AssumeRole
             Principal: 
               Service: lambda.amazonaws.com
-        RoleName: simple-serverless-arch-proxy-lambda-role
+      RoleName: simple-serverless-arch-proxy-lambda-role
   ProxyAwsLambda:
     Type: AWS::Lambda::Function
     Properties:
@@ -24,8 +20,9 @@ Resources:
         - arm64
       Code:
         S3Bucket: !ImportValue simple-serverless-arch-amazon-s3-bucket-ProxyLambdaS3BucketId
+        S3Key: simple-serverless-arch-proxy-lambda.zip
       FunctionName: simple-serverless-arch-proxy-lambda
       Handler: index.handler
       PackageType: Zip
-      Role: !GetAtt ProxyAwsLambdaRole
+      Role: !GetAtt ProxyAwsLambdaRole.Arn
       Runtime: nodejs18.x
