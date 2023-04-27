@@ -1,40 +1,29 @@
 # __Simple Serverless Architecture__
-This is a simple architecture used to store and retrieve any data delivered by the client.
+This is a simple serverless architecture that manage new words that you learn.
+For example, you today learn these words:
+- flat tire
+- wrinkles
+- cabinets
+- swipe
 
-## __Input Examples__:
-- Example 1:
-```json
-{
-    "firstName": "John",
-    "lastName": "Doe",
-    "age": 18,
-    "maritalStatus": "Single"
-}
-```
+Now, you can categorize, save, edit, review, and delete them.
 
-- Example 2:
-```json
-{
-    "name": "John Doe",    
-    "maritalStatus": "Single"
-}
-```
+# Toolbox
+To built this application I use these tool and services:
+- Amazon Api Gateway 
+- AWS Lambda
+- Amazon S3
+- Amazon DynamoDB
+- NestJS
+
+# Architecture Design
+<!--TODO: Import the diagram image-->
+!()[]
 
 # Deploy
-## Lambda
-- Zip lambda function with this command:
-```bash
-zip -r proxyLambdaFunction.zip ./lambda
-```
-- Create a bucket to deploy lambda function with this command:
-```bash
-aws cloudformation create-stack --stack-name bucketToLambda --template-body file://$(pwd)/bucket.yaml
-```
-- Deploy a function with this command:
-```bash
-aws s3 cp $(pwd)/proxyLambdaFunction.zip s3://alvarenga-carlos-lambda-bucket/
-```
+## Stacks
+Access [here](./stacks/README.md) to learn how to deploy the stacks.
 
-```bash
-aws cloudformation  create-stack --stack-name simpleServerlessArch --template-body file://$(pwd)/stack.yaml --capabilities CAPABILITY_IAM
-```
+
+# Development
+Use `docker-compose-dev.yaml` file to help you develop.
