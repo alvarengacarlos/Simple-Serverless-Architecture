@@ -6,9 +6,7 @@ Resources:
     Properties:
       AttributeDefinitions:
         - AttributeName: UserId
-          AttributeType: S
-        - AttributeName: WordCategory
-          AttributeType: S
+          AttributeType: S        
         - AttributeName: Word
           AttributeType: S
       BillingMode: PROVISIONED
@@ -16,14 +14,29 @@ Resources:
         ReadCapacityUnits: 2
         WriteCapacityUnits: 2
       KeySchema:
-        - AttributeName: WordCategory
-          KeyType: HASH
         - AttributeName: UserId
+          KeyType: HASH
+        - AttributeName: Word
           KeyType: RANGE
       TableClass: STANDARD
-      TableName: Words
+      TableName: !Sub "${AWS::StackName}-Words"
+  WordsCategoryDynamoDbTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: WordsCategory
+          AttributeType: S    
+      BillingMode: PROVISIONED
+      ProvisionedThroughput: 
+        ReadCapacityUnits: 2
+        WriteCapacityUnits: 2
+      KeySchema:
+        - AttributeName: WordsCategory
+          KeyType: HASH        
+      TableClass: STANDARD
+      TableName: !Sub "${AWS::StackName}-WordsCategory"
 Outputs:
   WordsDynamoDbTable:
     Value: !Ref WordsDynamoDbTable
-    Exports:
+    Export:
       Name: !Sub "${AWS::StackName}-WordsDynamoDbTableId"
