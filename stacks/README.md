@@ -12,26 +12,27 @@ aws cloudformation create-stack --stack-name simple-serverless-arch-amazon-dynam
 ```
 
 ## AWS Lambda
-- Run these commands to create AWS Lambda stack:
+- Access app directory to run this command:
+```bash
+zip -r ../simple-serverless-arch-proxy-lambda.zip .
+```
+
+- Access stacks directory and run these commands to create AWS Lambda stack:
 
 ```bash
 aws cloudformation create-stack --stack-name simple-serverless-arch-amazon-s3-bucket --template-body file://$(pwd)/amazon-s3-bucket.yaml
 ```
 
 ```bash
-zip -r ../app.zip ../app/
+aws s3 cp ../simple-serverless-arch-proxy-lambda.zip s3://simple-serverless-arch-amazon-s3-bucket-proxy-lambda/
 ```
 
 ```bash
-aws s3 cp ../app.zip s3://simple-serverless-arch-amazon-s3-bucket-ProxyLambdaS3Bucket/
+aws cloudformation create-stack --stack-name simple-serverless-arch-aws-lambda --template-body file://$(pwd)/aws-lambda.yaml --capabilities CAPABILITY_NAMED_IAM
 ```
-
-```bash
-aws cloudformation create-stack --stack-name simple-serverless-arch-aws-lambda --template-body file://$(pwd)/aws-lambda.yaml
-```
---capabilities CAPABILITY_IAM
 
 ## Amazon Api Gateway
+- Change the S3_BUCKET_URL parameter below by your front end application.
 - Run this command:
 ```bash
 aws cloudformation create-stack --stack-name simple-serverless-arch-api-gateway --template-body file://$(pwd)/amazon-api-gateway.yaml --parameters ParameterKey=AllowCorsForWhatOrigin,ParameterValue=S3_BUCKET_URL ParameterKey=DeployStage,ParameterValue=dev
