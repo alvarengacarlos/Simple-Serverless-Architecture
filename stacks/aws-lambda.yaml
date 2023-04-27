@@ -26,3 +26,12 @@ Resources:
       PackageType: Zip
       Role: !GetAtt ProxyAwsLambdaRole.Arn
       Runtime: nodejs18.x
+Outputs:
+  ProxyAwsLambdaRole:
+    Value: !Ref ProxyAwsLambda
+    Export:
+      Name: !Sub "${AWS::StackName}ProxyAwsLambdaRoleId"
+  ProxyAwsLambdaRoleArn:
+    Value: !GetAtt ProxyAwsLambda.Arn
+    Export:
+      Name: !Sub "${AWS::StackName}-ProxyAwsLambdaRoleArn"
