@@ -40,7 +40,7 @@ Resources:
     Properties:
       ApiId: !Ref ApiGateway
       IntegrationType: AWS_PROXY
-      IntegrationUri: !ImportValue simple-serverless-arch-aws-lambda-ProxyAwsLambdaRoleArn
+      IntegrationUri: !ImportValue simple-serverless-arch-aws-lambda-ProxyAwsLambdaArn
       PayloadFormatVersion: '2.0'
   #####################
   # Categories routes #

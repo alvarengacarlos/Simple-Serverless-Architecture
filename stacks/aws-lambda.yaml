@@ -27,11 +27,11 @@ Resources:
       Role: !GetAtt ProxyAwsLambdaRole.Arn
       Runtime: nodejs18.x
 Outputs:
-  ProxyAwsLambdaRole:
+  ProxyAwsLambda:
     Value: !Ref ProxyAwsLambda
     Export:
-      Name: !Sub "${AWS::StackName}ProxyAwsLambdaRoleId"
-  ProxyAwsLambdaRoleArn:
+      Name: !Sub "${AWS::StackName}ProxyAwsLambdaId"
+  ProxyAwsLambdaArn:
     Value: !GetAtt ProxyAwsLambda.Arn
     Export:
-      Name: !Sub "${AWS::StackName}-ProxyAwsLambdaRoleArn"
+      Name: !Sub "${AWS::StackName}-ProxyAwsLambdaArn"
