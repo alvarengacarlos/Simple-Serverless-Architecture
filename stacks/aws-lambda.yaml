@@ -12,6 +12,20 @@ Resources:
               - sts:AssumeRole
             Principal: 
               Service: lambda.amazonaws.com
+      Policies:  
+        - PolicyName: !Sub "${AWS::StackName}-ProxyLambdaPolicy"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                Resource: !Sub "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/simple-serverless-arch-proxy-lambda:*"
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource: !Sub "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:*"
       RoleName: simple-serverless-arch-proxy-lambda-role
   ProxyAwsLambda:
     Type: AWS::Lambda::Function
