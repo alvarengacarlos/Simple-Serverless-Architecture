@@ -29,20 +29,7 @@ Resources:
           - !Ref AllowCorsForWhatOrigin
       ProtocolType: HTTP
       Target: !ImportValue simple-serverless-arch-aws-lambda-ProxyAwsLambdaArn
-  ApiGatewayStage:
-    Type: AWS::ApiGatewayV2::Stage
-    Properties:
-      AccessLogSettings:
-        DestinationArn: !GetAtt ApiGatewayLogGroup.Arn
-        Format: '$context.identity.sourceIp - - [$context.requestTime] "$context.httpMethod $context.routeKey $context.protocol" $context.status $context.responseLength $context.requestId'
-      ApiId: !Ref ApiGateway
-      AutoDeploy: True
-      StageName: !Ref DeployStage
-  ApiGatewayLogGroup:
-    Type: AWS::Logs::LogGroup
-    Properties: 
-      LogGroupName: ApiGatewayLogGroup
-      RetentionInDays: 30
+      RouteKey: 'ANY /'
   ApiGatewayPermission:
     Type: AWS::Lambda::Permission
     Properties:
@@ -50,7 +37,7 @@ Resources:
       Action: lambda:InvokeFunction
       Principal: apigateway.amazonaws.com
       SourceAccount: !Ref "AWS::AccountId"
-      SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ApiGateway}/*/*/*"
+      SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ApiGateway}/$default/*/*"
 Outputs:
   ApiGateway:
     Value: !Ref ApiGateway
