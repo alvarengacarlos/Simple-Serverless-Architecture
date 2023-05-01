@@ -32,7 +32,7 @@ aws cloudformation create-stack --stack-name simple-serverless-arch-aws-lambda -
 ```
 
 ## Amazon Api Gateway
-- Change the S3_BUCKET_URL parameter below by your front end application.
+- Change the S3_BUCKET_URL parameter below by your front end application url.
 - Run this command:
 ```bash
 aws cloudformation create-stack --stack-name simple-serverless-arch-api-gateway --template-body file://$(pwd)/amazon-api-gateway.yaml --parameters ParameterKey=AllowCorsForWhatOrigin,ParameterValue=S3_BUCKET_URL ParameterKey=DeployStage,ParameterValue=dev
