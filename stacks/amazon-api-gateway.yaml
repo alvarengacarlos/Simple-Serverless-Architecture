@@ -32,10 +32,17 @@ Resources:
   ApiGatewayStage:
     Type: AWS::ApiGatewayV2::Stage
     Properties:
+      AccessLogSettings:
+        DestinationArn: !GetAtt ApiGatewayLogGroup.Arn
+        Format: '$context.identity.sourceIp - - [$context.requestTime] "$context.httpMethod $context.routeKey $context.protocol" $context.status $context.responseLength $context.requestId'
       ApiId: !Ref ApiGateway
       AutoDeploy: True
       StageName: !Ref DeployStage
-      #TODO: Put logs: https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-logging.html
+  ApiGatewayLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties: 
+      LogGroupName: ApiGatewayLogGroup
+      RetentionInDays: 30
   ApiGatewayPermission:
     Type: AWS::Lambda::Permission
     Properties:
