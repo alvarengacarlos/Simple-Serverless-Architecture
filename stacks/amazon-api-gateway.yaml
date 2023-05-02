@@ -37,7 +37,115 @@ Resources:
       Action: lambda:InvokeFunction
       Principal: apigateway.amazonaws.com
       SourceAccount: !Ref "AWS::AccountId"
-      SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ApiGateway}/$default/*/*"
+      SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ApiGateway}/*/*/*"
+  ApiGatewayAndLambdaIntegration:
+    Type: AWS::ApiGatewayV2::Integration
+    Properties:
+      ApiId: !Ref ApiGateway
+      IntegrationType: AWS_PROXY
+      PayloadFormatVersion: '2.0'
+      IntegrationUri: !Join 
+        - ''
+        - - !Sub "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/"
+          - !ImportValue simple-serverless-arch-aws-lambda-ProxyAwsLambdaArn
+          - '/invocations'
+  ################
+  # Word Routes #
+  ################
+  CreateWordRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref ApiGateway
+      RouteKey: 'POST /words'
+      Target: !Join
+        - /
+        - - integrations
+          - !Ref ApiGatewayAndLambdaIntegration
+  GetWordRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref ApiGateway
+      RouteKey: 'GET /words/{id}'
+      Target: !Join
+        - /
+        - - integrations
+          - !Ref ApiGatewayAndLambdaIntegration
+  GetAllWordsRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref ApiGateway
+      RouteKey: 'GET /words'
+      Target: !Join
+        - /
+        - - integrations
+          - !Ref ApiGatewayAndLambdaIntegration
+  UpdateWordRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref ApiGateway
+      RouteKey: 'PATCH /words/{id}'
+      Target: !Join
+        - /
+        - - integrations
+          - !Ref ApiGatewayAndLambdaIntegration
+  DeleteWordRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref ApiGateway
+      RouteKey: 'DELETE /words/{id}'
+      Target: !Join
+        - /
+        - - integrations
+          - !Ref ApiGatewayAndLambdaIntegration
+  ###################
+  # Category Routes #
+  ###################
+  CreateCategoryRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref ApiGateway
+      RouteKey: 'POST /categories'
+      Target: !Join
+        - /
+        - - integrations
+          - !Ref ApiGatewayAndLambdaIntegration
+  GetCategoryRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref ApiGateway
+      RouteKey: 'GET /categories/{id}'
+      Target: !Join
+        - /
+        - - integrations
+          - !Ref ApiGatewayAndLambdaIntegration
+  GetAllCategoriesRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref ApiGateway
+      RouteKey: 'GET /categories'
+      Target: !Join
+        - /
+        - - integrations
+          - !Ref ApiGatewayAndLambdaIntegration
+  UpdateCategoryRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref ApiGateway
+      RouteKey: 'PATCH /categories/{id}'
+      Target: !Join
+        - /
+        - - integrations
+          - !Ref ApiGatewayAndLambdaIntegration
+  DeleteCategoryRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref ApiGateway
+      RouteKey: 'DELETE /categories/{id}'
+      Target: !Join
+        - /
+        - - integrations
+          - !Ref ApiGatewayAndLambdaIntegration
+    
 Outputs:
   ApiGateway:
     Value: !Ref ApiGateway
