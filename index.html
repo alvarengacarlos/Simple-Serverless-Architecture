@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome</title>
+</head>
+<body>
+  <h1>Make requests</h1>
+  <div>
+    <h2>Words</h2>
+    <h4>Create</h4>
+    <h4>Read</h4>
+    <h4>Read All</h4>
+    <h4>Update</h4>
+    <h4>Delete</h4>
+  </div>
+  <div>
+    <h2>Category</h2>
+    <h4>Create</h4>
+    <h4>Read</h4>
+    <h4>Read All</h4>
+    <h4>Update</h4>
+    <h4>Delete</h4>
+  </div>
+</body>
+</html>
+<script>
+  function invoke(url, method, body = null) {
+    const options = {
+        method: method,
+        headers: {
+        'Content-Type': 'application/json'      
+        },
+        mode: 'no-cors',
+        body: JSON.stringify(body)
+    }
+
+    if (body == null) {
+      delete options.body
+    }
+    
+    const promise = fetch(url, options)
+
+    promise.then((response) => {
+      console.log('Success: ', response.body);
+    
+    }).catch((error) => {
+      console.log('Error: ', error);
+    })
+  }
+
+  const url = 'https://d80so1ms04.execute-api.us-east-1.amazonaws.com/'
+  const method = 'GET'
+  invoke(url, method)
+</script>

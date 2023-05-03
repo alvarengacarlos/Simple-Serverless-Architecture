@@ -1,0 +1,21 @@
+{
+  "name": "proxylambda",
+  "version": "1.0.0",
+  "description": "This is a simple proxy lambda to integrate with Amazon Api Gateway",
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./src/index.js",
+    "start:dev": "nodemon ./src/index.js",
+    "migrate": "node ./src/migration.js"
+  },
+  "author": "alvarengacarlos",
+  "license": "MIT",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.325.0",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "nodemon": "^2.0.22",
+    "serverless-http": "^3.2.0"
+  }
+}

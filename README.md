@@ -23,7 +23,3 @@ To built this application I use these tool and services:
 # Deploy
 ## Stacks
 Access [here](./stacks/README.md) to learn how to deploy the stacks.
-
-
-# Development
-Use `docker-compose-dev.yaml` file to help you develop.

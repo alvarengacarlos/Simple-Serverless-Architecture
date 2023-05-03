@@ -1,0 +1,17 @@
+version: '3.9'
+
+services:
+  proxyLambda:
+    container_name: proxyLambda
+    image: node:lts-buster
+    working_dir: /home/node/proxyLambda
+    ports:
+      - 3000:3000
+    volumes:
+      - ./:/home/node/proxyLambda
+    depends_on:
+      - dynamoDb
+  dynamoDb:
+    container_name: dynamoDb
+    image: amazon/dynamodb-local
+    command: "-jar DynamoDBLocal.jar"

@@ -12,7 +12,9 @@ aws cloudformation create-stack --stack-name simple-serverless-arch-amazon-dynam
 ```
 
 ## AWS Lambda
-- Access app directory to run this command:
+- Configure your Proxy Lambda to deploy following [this steps](../proxyLambda/README.md).
+
+- Access proxyLambda directory to run this command:
 ```bash
 zip -r ../simple-serverless-arch-proxy-lambda.zip .
 ```
