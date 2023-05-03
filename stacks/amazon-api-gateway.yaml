@@ -56,7 +56,7 @@ Resources:
     Type: AWS::ApiGatewayV2::Route
     Properties:
       ApiId: !Ref ApiGateway
-      RouteKey: 'POST /words'
+      RouteKey: 'POST /words/{userId}'
       Target: !Join
         - /
         - - integrations
@@ -65,7 +65,7 @@ Resources:
     Type: AWS::ApiGatewayV2::Route
     Properties:
       ApiId: !Ref ApiGateway
-      RouteKey: 'GET /words/{id}'
+      RouteKey: 'GET /words/{userId}/{word}'
       Target: !Join
         - /
         - - integrations
@@ -74,7 +74,7 @@ Resources:
     Type: AWS::ApiGatewayV2::Route
     Properties:
       ApiId: !Ref ApiGateway
-      RouteKey: 'GET /words'
+      RouteKey: 'GET /words/{userId}'
       Target: !Join
         - /
         - - integrations
@@ -83,7 +83,7 @@ Resources:
     Type: AWS::ApiGatewayV2::Route
     Properties:
       ApiId: !Ref ApiGateway
-      RouteKey: 'PATCH /words/{id}'
+      RouteKey: 'PATCH /words/{userId}'
       Target: !Join
         - /
         - - integrations
@@ -92,7 +92,7 @@ Resources:
     Type: AWS::ApiGatewayV2::Route
     Properties:
       ApiId: !Ref ApiGateway
-      RouteKey: 'DELETE /words/{id}'
+      RouteKey: 'DELETE /words/{userId}/{word}'
       Target: !Join
         - /
         - - integrations
@@ -100,47 +100,38 @@ Resources:
   ###################
   # Category Routes #
   ###################
-  CreateCategoryRoute:
+  CreateWordCategoryRoute:
     Type: AWS::ApiGatewayV2::Route
     Properties:
       ApiId: !Ref ApiGateway
-      RouteKey: 'POST /categories'
+      RouteKey: 'POST /word-categories'
       Target: !Join
         - /
         - - integrations
           - !Ref ApiGatewayAndLambdaIntegration
-  GetCategoryRoute:
+  GetWordCategoryRoute:
     Type: AWS::ApiGatewayV2::Route
     Properties:
       ApiId: !Ref ApiGateway
-      RouteKey: 'GET /categories/{id}'
+      RouteKey: 'GET /word-categories/{name}'
       Target: !Join
         - /
         - - integrations
           - !Ref ApiGatewayAndLambdaIntegration
-  GetAllCategoriesRoute:
+  GetAllWordCategoriesRoute:
     Type: AWS::ApiGatewayV2::Route
     Properties:
       ApiId: !Ref ApiGateway
-      RouteKey: 'GET /categories'
+      RouteKey: 'GET /word-categories'
       Target: !Join
         - /
         - - integrations
           - !Ref ApiGatewayAndLambdaIntegration
-  UpdateCategoryRoute:
+  DeleteWordCategoryRoute:
     Type: AWS::ApiGatewayV2::Route
     Properties:
       ApiId: !Ref ApiGateway
-      RouteKey: 'PATCH /categories/{id}'
-      Target: !Join
-        - /
-        - - integrations
-          - !Ref ApiGatewayAndLambdaIntegration
-  DeleteCategoryRoute:
-    Type: AWS::ApiGatewayV2::Route
-    Properties:
-      ApiId: !Ref ApiGateway
-      RouteKey: 'DELETE /categories/{id}'
+      RouteKey: 'DELETE /word-categories/{name}'
       Target: !Join
         - /
         - - integrations
