@@ -12,9 +12,9 @@ aws cloudformation create-stack --stack-name simple-serverless-arch-amazon-dynam
 ```
 
 ## AWS Lambda
-- Configure your Proxy Lambda to deploy following [this steps](../proxyLambda/README.md).
+- Access proxyLambda to configure your Proxy Lambda to deploy following [this steps](../proxyLambda/README.md).
 
-- Access proxyLambda directory to run this command:
+- Run this command:
 ```bash
 zip -r ../simple-serverless-arch-proxy-lambda.zip .
 ```
@@ -26,7 +26,7 @@ aws cloudformation create-stack --stack-name simple-serverless-arch-amazon-s3-bu
 ```
 
 ```bash
-aws s3 cp ../simple-serverless-arch-proxy-lambda.zip s3://simple-serverless-arch-amazon-s3-bucket-proxy-lambda/
+aws s3 cp ../simple-serverless-arch-proxy-lambda.zip s3://simple-serverless-arch-amazon-s3-bucket-proxy-lambda
 ```
 
 ```bash
