@@ -6,6 +6,10 @@
 IS_DEPLOY=true
 DYNAMO_DB_REGION="us-east-1"
 ```
+- Install all production dependencies:
+```bash
+npm install --omit=dev
+```
 
 ## Development
 - Configure your dotenv changing the IS_DEPLOY variable to false:
