@@ -1,7 +1,7 @@
 # Deploy the Stacks
 >__NOTE 0:__ Login your AWS CLI to continue.
 
->__NOTE 1:__ Run these commands in sequence.
+>__NOTE 1:__ Run these commands in sequence and inside stacks directory.
 
 >__NOTE 2:__ Wait for each stack to complete the build to run the next command.
 
