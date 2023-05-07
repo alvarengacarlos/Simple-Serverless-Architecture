@@ -39,4 +39,8 @@ Outputs:
   WordsDynamoDbTable:
     Value: !Ref WordsDynamoDbTable
     Export:
-      Name: !Sub "${AWS::StackName}-WordsDynamoDbTableId"
+      Name: !Sub "${AWS::StackName}-WordsDynamoDbTableName"
+  WordsCategoryDynamoDbTable:
+    Value: !Ref WordsCategoryDynamoDbTable
+    Export:
+      Name: !Sub "${AWS::StackName}-WordsCategoryDynamoDbTableName"

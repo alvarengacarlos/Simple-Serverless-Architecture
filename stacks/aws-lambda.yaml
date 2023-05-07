@@ -26,6 +26,23 @@ Resources:
                   - logs:CreateLogStream
                   - logs:PutLogEvents
                 Resource: !Sub "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/simple-serverless-arch-proxy-lambda:*"
+              - Effect: Allow
+                Action: 
+                  - dynamodb:DeleteItem
+                  - dynamodb:GetItem
+                  - dynamodb:PutItem
+                  - dynamodb:Query
+                  - dynamodb:Scan
+                  - dynamodb:UpdateItem
+                Resource: 
+                  - !Join
+                    - ''
+                    - - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/"
+                      - !ImportValue simple-serverless-arch-amazon-dynamodb-WordsDynamoDbTableName
+                  - !Join
+                    - ''
+                    - - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/"
+                      - !ImportValue simple-serverless-arch-amazon-dynamodb-WordsCategoryDynamoDbTableName
       RoleName: simple-serverless-arch-proxy-lambda-role
   ProxyAwsLambda:
     Type: AWS::Lambda::Function
