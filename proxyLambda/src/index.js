@@ -180,8 +180,10 @@ app.delete('/word-categories/:name', async (request, response) => {
  */
 if (env.IS_DEPLOY == 'true') {
   const handler = serverless(app, {provider: 'aws'})
-  module.exports.handler = async function (context, req) {
-    context.res = await handler(context, req)
+  module.exports.handler = async function (event, context) {
+    const result = await handler(event, context)
+
+    return result
   }
 
 } else {
