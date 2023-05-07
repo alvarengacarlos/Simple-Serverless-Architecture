@@ -36,16 +36,26 @@ Resources:
         S3Bucket: !ImportValue simple-serverless-arch-amazon-s3-bucket-ProxyLambdaS3BucketId
         S3Key: simple-serverless-arch-proxy-lambda.zip
       FunctionName: simple-serverless-arch-proxy-lambda
-      Handler: index.handler
+      Handler: ./src/index.handler
       PackageType: Zip
       Role: !GetAtt ProxyAwsLambdaRole.Arn
       Runtime: nodejs18.x
+  LambdaVersion:
+    Type: AWS::Lambda::Version
+    Properties:
+      FunctionName: !GetAtt ProxyAwsLambda.Arn
+      Description: v1
+
 Outputs:
   ProxyAwsLambda:
     Value: !Ref ProxyAwsLambda
     Export:
       Name: !Sub "${AWS::StackName}ProxyAwsLambdaId"
   ProxyAwsLambdaArn:
-    Value: !GetAtt ProxyAwsLambda.Arn
+    Value: !Join 
+      - ''
+      - - !GetAtt ProxyAwsLambda.Arn
+        - ':'
+        - !GetAtt LambdaVersion.Version
     Export:
       Name: !Sub "${AWS::StackName}-ProxyAwsLambdaArn"
