@@ -5,8 +5,46 @@ Resources:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: !Sub "${AWS::StackName}-proxy-lambda"      
+  FrontEndS3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub "${AWS::StackName}-front-end"
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: ObjectWriter      
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        ErrorDocument: error.html
+    DeletionPolicy: Retain
+  FrontEndS3BucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref FrontEndS3Bucket
+      PolicyDocument:
+        Id: FrontEndS3BucketPolicy
+        Version: '2012-10-17'
+        Statement:
+          - Sid: PublicReadForGetBucketObjects
+            Effect: Allow
+            Principal: '*'
+            Action: 's3:GetObject'
+            Resource: !Join
+              - ''
+              - - !GetAtt FrontEndS3Bucket.Arn
+                - '/*'
+
 Outputs:
   ProxyLambdaS3Bucket:
     Value: !Ref ProxyLambdaS3Bucket
     Export:
       Name: !Sub "${AWS::StackName}-ProxyLambdaS3BucketId"
+  FrontEndS3Bucket:
+    Value: !Ref FrontEndS3Bucket
+    Export:
+      Name: !Sub "${AWS::StackName}-FrontEndS3Bucket"
+  WebsiteURL:
+    Value: !GetAtt FrontEndS3Bucket.WebsiteURL
+    Export:
+      Name: !Sub "${AWS::StackName}-FrontEndS3BucketWebsiteUrl"

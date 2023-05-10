@@ -11,6 +11,11 @@
 aws cloudformation create-stack --stack-name simple-serverless-arch-amazon-dynamodb --template-body file://$(pwd)/amazon-dynamodb.yaml
 ```
 
+## Amazon S3 and Buckets
+```bash
+aws cloudformation create-stack --stack-name simple-serverless-arch-amazon-s3-bucket --template-body file://$(pwd)/amazon-s3-bucket.yaml
+```
+
 ## AWS Lambda
 - Access proxyLambda to configure your Proxy Lambda to deploy following [this steps](../proxyLambda/README.md).
 
@@ -19,16 +24,11 @@ aws cloudformation create-stack --stack-name simple-serverless-arch-amazon-dynam
 zip -r ../simple-serverless-arch-proxy-lambda.zip .
 ```
 
-- Access stacks directory and run these commands to create AWS Lambda stack:
-
-```bash
-aws cloudformation create-stack --stack-name simple-serverless-arch-amazon-s3-bucket --template-body file://$(pwd)/amazon-s3-bucket.yaml
-```
-
 ```bash
 aws s3 cp ../simple-serverless-arch-proxy-lambda.zip s3://simple-serverless-arch-amazon-s3-bucket-proxy-lambda
 ```
 
+- Access the stacks directory again and run this command:
 ```bash
 aws cloudformation create-stack --stack-name simple-serverless-arch-aws-lambda --template-body file://$(pwd)/aws-lambda.yaml --capabilities CAPABILITY_NAMED_IAM
 ```
@@ -38,6 +38,17 @@ aws cloudformation create-stack --stack-name simple-serverless-arch-aws-lambda -
 - Run this command:
 ```bash
 aws cloudformation create-stack --stack-name simple-serverless-arch-api-gateway --template-body file://$(pwd)/amazon-api-gateway.yaml --parameters ParameterKey=AllowCorsForWhatOrigin,ParameterValue=S3_BUCKET_URL ParameterKey=DeployStage,ParameterValue=dev
+```
+
+## Front End
+- Access frontEnd directory and change BASE_URL constant to your API Gateway url. Eg:
+```javascript
+const BASE_URL = 'https://hdnotu40d9.execute-api.us-east-1.amazonaws.com'
+```
+
+- Run this command to upload the Front End:
+```bash
+aws s3 cp ../frontEnd/index.html ../frontEnd/error.html s3://simple-serverless-arch-amazon-s3-bucket-front-end
 ```
 
 [back](../README.md)
