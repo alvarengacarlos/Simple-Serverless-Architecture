@@ -2,6 +2,7 @@ const { env } = require('process')
 
 const serverless = require('serverless-http');
 const express = require('express')
+const cors = require('cors')
 require('dotenv').config()
 
 const ResponsePattern = require('./response-pattern')
@@ -16,10 +17,21 @@ const model = new Model()
  * Config
  */
 app.use(express.json())
+app.use(cors())
 
 /**
  * Routes
  */
+
+app.get('/info', async (request, response) => {
+  try {   
+    const dateTime = new Date().toISOString()
+    return ResponsePattern.ok(response, 'it is working', {dateTime: dateTime})
+
+  } catch (error) {
+    return ResponsePattern.internalServerError(response)
+  }
+})
 
 //Words
 app.get('/words/:userId/:word', async (request, response) => {

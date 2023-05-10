@@ -46,9 +46,14 @@ aws cloudformation create-stack --stack-name simple-serverless-arch-api-gateway 
 const BASE_URL = 'https://hdnotu40d9.execute-api.us-east-1.amazonaws.com'
 ```
 
-- Run this command to upload the Front End:
+- Run these commands to upload the Front End:
 ```bash
 aws s3 cp ../frontEnd/index.html ../frontEnd/error.html s3://simple-serverless-arch-amazon-s3-bucket-front-end
+
+aws s3 cp ../frontEnd/error.html s3://simple-serverless-arch-amazon-s3-bucket-front-end
 ```
+
+# Down stacks
+Access your Aws Console and delete the stacks in reverse order. Also, do not forget that before you delete the bucket stack you must delete all files inside it.
 
 [back](../README.md)

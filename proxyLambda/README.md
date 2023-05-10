@@ -27,4 +27,9 @@ You can use `docker-compose-dev.yaml` file to help you develop:
 docker compose -f docker-compose-dev.yaml run --rm --service-ports -u node proxyLambda bash
 ```
 
+- To down the environment use:
+```bash
+docker compose -f docker-compose-dev.yaml down
+```
+
 [back](../stacks/README.md)

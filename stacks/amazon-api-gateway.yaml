@@ -29,7 +29,7 @@ Resources:
           - !Ref AllowCorsForWhatOrigin
       ProtocolType: HTTP
       Target: !ImportValue simple-serverless-arch-aws-lambda-ProxyAwsLambdaArn
-      RouteKey: 'ANY /'
+      RouteKey: 'GET /info'
   ApiGatewayPermission:
     Type: AWS::Lambda::Permission
     Properties:

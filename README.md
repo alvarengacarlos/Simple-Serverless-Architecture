@@ -14,14 +14,13 @@ To built this application I use these tool and services:
 - AWS Lambda
 - Amazon S3
 - Amazon DynamoDB
-- NestJS
+- Express
 
 # Architecture Design
 <!--TODO: Import the diagram image-->
 !()[]
 
 # Deploy
-## Stacks
 Access [here](./stacks/README.md) to learn how to deploy the stacks.
 
 # References
