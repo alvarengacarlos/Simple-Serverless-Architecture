@@ -18,7 +18,7 @@ To built this application I use these tool and services:
 
 # Architecture Design
 <!--TODO: Import the diagram image-->
-!()[]
+![](./serverless-arch.jpg)
 
 # Deploy
 Access [here](./stacks/README.md) to learn how to deploy the stacks.
